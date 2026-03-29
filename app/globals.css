@@ -1,22 +1,25 @@
 @import "tailwindcss";
 
+/* ================================================
+   PALETTE — edit only this block to swap themes
+   ================================================ */
 @theme {
-  --color-deep-crimson: #9b1d20;
-  --color-midnight-violet: #3d2b3d;
-  --color-azure-mist: #cee0dc;
-  --color-pale-sky: #b9cfd4;
-  --color-lilac-ash: #afaab9;
-  --color-cream: #f8f5f2;
-  --color-ink: #1a1018;
+  --color-heading:     #6b0504;  /* dark-garnet     */
+  --color-accent:      #114b5f;  /* dark-teal       */
+  --color-surface:     #a7adc6;  /* lavender-grey   */
+  --color-surface-alt: #8797af;  /* lavender-grey-2 */
+  --color-rim:         #56667a;  /* blue-slate      */
+  --color-canvas:      #f9f2f2;  /* snow            */
+  --color-ink:         #56667a;  /* blue-slate      */
 }
 
 @theme inline {
   --font-serif: var(--font-playfair);
-  --font-sans: var(--font-inter);
+  --font-sans:  var(--font-inter);
 }
 
 body {
-  background-color: #f8f5f2;
-  color: #1a1018;
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
   font-family: var(--font-sans), sans-serif;
 }
