@@ -1,22 +1,32 @@
 import Link from "next/link";
 
+const ztBold = {
+  fontFamily: "ZT Yaglo, sans-serif",
+  fontWeight: 400,
+  fontSize: "0.9rem",
+  color: "#e9c3b9",
+  WebkitTextStroke: "0.8px #e9c3b9",
+} as React.CSSProperties;
+
 export default function Nav() {
   return (
-    <header className="px-6 md:px-12 py-5 flex items-center justify-between border-b border-rim/40">
-      <Link href="/" className="font-serif text-xl font-bold tracking-tight text-heading">
-        Shell
-      </Link>
-      <nav className="flex items-center gap-8">
-        <Link
-          href="/events"
-          className="text-sm font-medium tracking-wide text-ink/70 hover:text-accent transition-colors"
-        >
+    <header
+      className="flex items-center justify-center px-8 md:px-16 py-4"
+      style={{ backgroundColor: "#2d0719" }}
+    >
+      <nav className="flex items-center gap-6">
+        <Link href="/#events" className="tracking-widest uppercase inline-block" style={ztBold}>
           Events
         </Link>
         <Link
-          href="/blog"
-          className="text-sm font-medium tracking-wide text-ink/70 hover:text-accent transition-colors"
+          href="/"
+          style={{ fontFamily: "Giomori, Georgia, serif", fontStyle: "italic", color: "#f0494e", letterSpacing: "0.05em" }}
+          className="text-xl md:text-2xl uppercase transition-opacity hover:opacity-70"
+          title="Back to home"
         >
+          A Glass or Tu
+        </Link>
+        <Link href="/#blog" className="tracking-widest uppercase inline-block" style={ztBold}>
           Blog
         </Link>
       </nav>

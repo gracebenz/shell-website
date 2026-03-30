@@ -14,7 +14,10 @@ export default async function AdminEventsPage() {
   return (
     <div className="max-w-3xl">
       <div className="flex items-center justify-between mb-8">
-        <h1 className="font-serif text-3xl font-bold text-heading">Events</h1>
+        <div>
+          <h1 className="font-serif text-3xl font-bold text-heading">Events</h1>
+          <div style={{ width: "32px", height: "1px", backgroundColor: "#f0494e", marginTop: "6px" }} />
+        </div>
         <Link
           href="/admin/events/new"
           className="px-4 py-2 bg-heading text-canvas text-sm font-medium rounded-lg hover:opacity-80 transition-opacity"

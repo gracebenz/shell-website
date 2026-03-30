@@ -22,6 +22,7 @@ function randomConfirmation() {
 export type SignupState = {
   status: "idle" | "success" | "error";
   message: string;
+  name?: string;
 };
 
 export async function signupForEvent(
@@ -43,5 +44,18 @@ export async function signupForEvent(
     return { status: "error", message: "Something went wrong. Please try again." };
   }
 
-  return { status: "success", message: randomConfirmation() };
+  return { status: "success", message: randomConfirmation(), name: name.trim() };
+}
+
+export async function unsignupFromEvent(
+  eventId: string,
+  name: string
+): Promise<{ error: boolean }> {
+  const { error } = await supabase
+    .from("signups")
+    .delete()
+    .eq("event_id", eventId)
+    .eq("name", name);
+
+  return { error: !!error };
 }

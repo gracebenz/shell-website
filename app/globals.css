@@ -1,21 +1,61 @@
 @import "tailwindcss";
 
 /* ================================================
+   CUSTOM FONTS
+   ================================================ */
+@font-face {
+  font-family: "ZT Yaglo";
+  src: url("/fonts/ZT Yaglo Thin.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Giomori";
+  src: url("/fonts/Giomori.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Giomori";
+  src: url("/fonts/Giomori Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ================================================
    PALETTE — edit only this block to swap themes
    ================================================ */
 @theme {
-  --color-heading:     #6b0504;  /* dark-garnet     */
-  --color-accent:      #114b5f;  /* dark-teal       */
-  --color-surface:     #a7adc6;  /* lavender-grey   */
-  --color-surface-alt: #8797af;  /* lavender-grey-2 */
-  --color-rim:         #56667a;  /* blue-slate      */
-  --color-canvas:      #f9f2f2;  /* snow            */
-  --color-ink:         #56667a;  /* blue-slate      */
+  --color-heading:     #2d0719;  /* midnight-violet  */
+  --color-accent:      #f0494e;  /* strawberry-red   */
+  --color-surface:     #e9c3b9;  /* almond-silk      */
+  --color-surface-alt: #d9e6f1;  /* alice-blue       */
+  --color-rim:         #6f4951;  /* chocolate-plum   */
+  --color-canvas:      #faf7f4;  /* warm off-white   */
+  --color-ink:         #2d0719;  /* midnight-violet  */
 }
 
 @theme inline {
-  --font-serif: var(--font-playfair);
-  --font-sans:  var(--font-inter);
+  --font-display: "ZT Yaglo", sans-serif;
+  --font-serif:   "Giomori", Georgia, serif;
+  --font-sans:    var(--font-inter), sans-serif;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #2d0719 !important;
 }
 
 body {
