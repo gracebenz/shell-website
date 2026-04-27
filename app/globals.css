@@ -141,7 +141,7 @@
     right: 0;
     padding: 1.5rem 5vw;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     font-family: "Klomisk", sans-serif;
     font-size: var(--text-sm);
@@ -821,6 +821,208 @@
     border: 1px solid rgba(240,232,216,0.15);
     color: var(--color-dim);
     display: inline-block;
+  }
+
+  /* ─── ADMIN ──────────────────────────────────── */
+
+  .admin-nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 5vw;
+    height: 3.5rem;
+    background: var(--color-surface);
+    border-bottom: 1px solid rgba(184,150,46,0.18);
+    flex-shrink: 0;
+  }
+
+  .admin-brand {
+    font-family: "Giomori", Georgia, serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    margin-right: 0.5rem;
+  }
+
+  .admin-nav-link {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-dim);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .admin-nav-link:hover { color: var(--color-ink); }
+
+  .admin-heading {
+    font-family: "Thegralke", Georgia, serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--color-ink);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+  }
+
+  .admin-rule {
+    width: 2rem;
+    height: 1px;
+    background: var(--color-gold);
+    margin-top: 0.6rem;
+    opacity: 0.6;
+  }
+
+  .admin-table {
+    width: 100%;
+    border-top: 1px solid rgba(240,232,216,0.08);
+    margin-top: 2rem;
+  }
+
+  .admin-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid rgba(240,232,216,0.06);
+  }
+
+  .admin-row-title {
+    font-family: "Giomori", Georgia, serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--color-ink);
+    line-height: 1.2;
+  }
+
+  .admin-row-meta {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    color: var(--color-dim);
+    letter-spacing: 0.04em;
+    margin-top: 0.2rem;
+  }
+
+  .admin-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .admin-btn-primary {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: var(--color-gold);
+    color: var(--color-canvas);
+    border: 1px solid var(--color-gold);
+    padding: 0.5rem 1.2rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+    display: inline-block;
+  }
+
+  .admin-btn-primary:hover {
+    background: transparent;
+    color: var(--color-gold);
+  }
+
+  .admin-btn-ghost {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--color-dim);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .admin-btn-ghost:hover { color: var(--color-gold); }
+
+  .admin-btn-danger {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: transparent;
+    color: rgba(200,80,80,0.55);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .admin-btn-danger:hover { color: rgba(220,80,80,1); }
+
+  .admin-card {
+    border: 1px solid rgba(240,232,216,0.08);
+    border-left: 2px solid var(--color-gold);
+    padding: 1.5rem 1.75rem;
+    text-decoration: none;
+    display: block;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .admin-card:hover {
+    background: rgba(184,150,46,0.04);
+    border-left-color: var(--color-gold);
+  }
+
+  .admin-card-title {
+    font-family: "Giomori", Georgia, serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--color-ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .admin-card-desc {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    color: var(--color-dim);
+  }
+
+  .admin-input {
+    width: 100%;
+    background: var(--color-surface);
+    border: 1px solid rgba(240,232,216,0.12);
+    padding: 0.75rem 1rem;
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-md);
+    color: var(--color-ink);
+    outline: none;
+    transition: border-color 0.2s ease;
+    letter-spacing: 0.02em;
+  }
+
+  .admin-input:focus { border-color: rgba(184,150,46,0.5); }
+  .admin-input::placeholder { color: var(--color-dim); }
+
+  .admin-label {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-xs);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .admin-empty {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-md);
+    color: var(--color-dim);
+    padding: 3rem 0;
   }
 
   /* ─── ANIMATIONS ─────────────────────────────── */

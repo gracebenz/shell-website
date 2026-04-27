@@ -20,32 +20,27 @@ export default async function AdminBlogPage() {
     .order("published_at", { ascending: false });
 
   return (
-    <div className="max-w-3xl">
-      <div className="flex items-center justify-between mb-8">
+    <div style={{ maxWidth: "52rem" }}>
+      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "0.5rem" }}>
         <div>
-          <h1 className="font-serif text-3xl font-bold text-heading">Blog Posts</h1>
-          <div style={{ width: "32px", height: "1px", backgroundColor: "#f0494e", marginTop: "6px" }} />
+          <h1 className="admin-heading">Journal</h1>
+          <div className="admin-rule" />
         </div>
-        <Link href="/admin/blog/new"
-          className="px-4 py-2 bg-heading text-canvas text-sm font-medium rounded-lg hover:opacity-80 transition-opacity">
-          + New post
-        </Link>
+        <Link href="/admin/blog/new" className="admin-btn-primary">+ New entry</Link>
       </div>
 
       {!posts?.length ? (
-        <p className="text-ink/30 text-sm">No posts yet.</p>
+        <p className="admin-empty">No entries yet.</p>
       ) : (
-        <div className="flex flex-col divide-y divide-rim/30">
+        <div className="admin-table">
           {posts.map((post) => (
-            <div key={post.slug} className="flex items-center justify-between py-4">
+            <div key={post.slug} className="admin-row">
               <div>
-                <p className="font-medium text-ink">{post.title}</p>
-                <p className="text-xs text-ink/50 mt-0.5">{formatDate(post.published_at)}</p>
+                <div className="admin-row-title">{post.title}</div>
+                <div className="admin-row-meta">{formatDate(post.published_at)}</div>
               </div>
-              <div className="flex items-center gap-4">
-                <Link href={`/admin/blog/${post.slug}`} className="text-xs text-accent hover:underline">
-                  Edit
-                </Link>
+              <div className="admin-actions">
+                <Link href={`/admin/blog/${post.slug}`} className="admin-btn-ghost">Edit</Link>
                 <DeletePostButton slug={post.slug} />
               </div>
             </div>

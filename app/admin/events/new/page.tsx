@@ -3,14 +3,12 @@ import EventForm from "@/components/EventForm";
 
 export default function NewEventPage() {
   return (
-    <div className="max-w-xl">
-      <Link
-        href="/admin/events"
-        className="inline-flex items-center gap-1 text-sm text-ink/50 hover:text-accent transition-colors mb-8"
-      >
-        ← Events
-      </Link>
-      <h1 className="font-serif text-3xl font-bold text-heading mb-8">New Event</h1>
+    <div style={{ maxWidth: "36rem" }}>
+      <Link href="/admin/events" className="admin-btn-ghost" style={{ display: "inline-block", marginBottom: "2rem" }}>← Events</Link>
+      <div style={{ marginBottom: "2.5rem" }}>
+        <h1 className="admin-heading">New Event</h1>
+        <div className="admin-rule" />
+      </div>
       <EventForm />
     </div>
   );

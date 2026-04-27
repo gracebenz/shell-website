@@ -1,42 +1,31 @@
 "use server";
 
-import { createClient } from "@/lib/supabase-server";
-
-const ALLOWED_EMAILS = [
-  "gracebenz2@gmail.com",
-  "shelltu118@gmail.com",
-];
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export type LoginState = {
-  status: "idle" | "success" | "error";
+  status: "idle" | "error";
   message: string;
 };
 
-export async function sendMagicLink(
+export async function login(
   prevState: LoginState,
   formData: FormData
 ): Promise<LoginState> {
-  const email = formData.get("email");
+  const password = formData.get("password");
 
-  if (!email || typeof email !== "string") {
-    return { status: "error", message: "Please enter an email address." };
+  if (!password || password !== process.env.ADMIN_PASSWORD) {
+    return { status: "error", message: "Incorrect password." };
   }
 
-  if (!ALLOWED_EMAILS.includes(email.trim().toLowerCase())) {
-    return { status: "error", message: "This email is not authorized." };
-  }
-
-  const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithOtp({
-    email: email.trim().toLowerCase(),
-    options: {
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
-    },
+  const cookieStore = await cookies();
+  cookieStore.set("shell-admin", "authenticated", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 60 * 60 * 24 * 30,
+    path: "/",
   });
 
-  if (error) {
-    return { status: "error", message: "Something went wrong. Please try again." };
-  }
-
-  return { status: "success", message: "Check your email for a login link." };
+  redirect("/admin");
 }

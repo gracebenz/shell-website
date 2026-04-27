@@ -12,37 +12,27 @@ export default async function AdminEventsPage() {
     .order("date", { ascending: true });
 
   return (
-    <div className="max-w-3xl">
-      <div className="flex items-center justify-between mb-8">
+    <div style={{ maxWidth: "52rem" }}>
+      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "0.5rem" }}>
         <div>
-          <h1 className="font-serif text-3xl font-bold text-heading">Events</h1>
-          <div style={{ width: "32px", height: "1px", backgroundColor: "#f0494e", marginTop: "6px" }} />
+          <h1 className="admin-heading">Events</h1>
+          <div className="admin-rule" />
         </div>
-        <Link
-          href="/admin/events/new"
-          className="px-4 py-2 bg-heading text-canvas text-sm font-medium rounded-lg hover:opacity-80 transition-opacity"
-        >
-          + New event
-        </Link>
+        <Link href="/admin/events/new" className="admin-btn-primary">+ New event</Link>
       </div>
 
       {!events?.length ? (
-        <p className="text-ink/30 text-sm">No events yet.</p>
+        <p className="admin-empty">No events yet.</p>
       ) : (
-        <div className="flex flex-col divide-y divide-rim/30">
+        <div className="admin-table">
           {events.map((event) => (
-            <div key={event.id} className="flex items-center justify-between py-4">
+            <div key={event.id} className="admin-row">
               <div>
-                <p className="font-medium text-ink">{event.title}</p>
-                <p className="text-xs text-ink/50 mt-0.5">{event.date} · {event.location}</p>
+                <div className="admin-row-title">{event.title}</div>
+                <div className="admin-row-meta">{event.date} · {event.location}</div>
               </div>
-              <div className="flex items-center gap-4">
-                <Link
-                  href={`/admin/events/${event.id}`}
-                  className="text-xs text-accent hover:underline"
-                >
-                  Edit
-                </Link>
+              <div className="admin-actions">
+                <Link href={`/admin/events/${event.id}`} className="admin-btn-ghost">Edit</Link>
                 <DeleteEventButton id={event.id} />
               </div>
             </div>
