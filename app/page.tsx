@@ -53,8 +53,13 @@ export default async function Home() {
         {/* Masthead strip */}
         <div className="hero-masthead">
           <span>Est. 2025 · New York</span>
-          <Link href="/" className="hero-masthead-brand">A Glass or Tu</Link>
-          <span>&nbsp;</span>
+          <Link
+            href="/#hero"
+            className="hero-masthead-brand"
+            style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}
+          >
+            A Glass or Tu
+          </Link>
         </div>
 
         {/* Title */}
