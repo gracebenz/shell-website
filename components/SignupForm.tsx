@@ -40,47 +40,56 @@ export default function SignupForm({ eventId }: { eventId: string }) {
 
   if (signedUpName) {
     return (
-      <div className="flex flex-col gap-2">
+      <div className="signup-wrap" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         {state.status === "success" && (
-          <p className="text-sm italic" style={{ fontFamily: "Giomori, Georgia, serif", color: "#2d0719" }}>{state.message}</p>
+          <p style={{ fontFamily: "Giomori, Georgia, serif", fontStyle: "italic", fontSize: "0.9rem", color: "var(--color-gold)" }}>
+            {state.message}
+          </p>
         )}
         {state.status !== "success" && (
-          <p className="text-sm text-ink/60">You're signed up.</p>
+          <p style={{ fontFamily: "Klomisk, sans-serif", fontSize: "0.72rem", color: "var(--color-dim)", letterSpacing: "0.05em" }}>
+            You are on the list.
+          </p>
         )}
         <button
           onClick={handleUnsign}
           disabled={unsignPending}
-          className="self-start text-xs uppercase tracking-wide px-3 py-1 rounded-full border border-rim/40 text-rim/70 hover:border-rim/70 hover:text-ink/70 transition-colors disabled:opacity-40"
+          className="back-link"
+          style={{ marginBottom: 0 }}
         >
-          {unsignPending ? "Removing…" : "Never Mind"}
+          {unsignPending ? "Removing…" : "Remove my name"}
         </button>
       </div>
     );
   }
 
   return (
-    <form action={formAction} className="flex flex-col gap-2">
-      <div className="flex items-center">
-        <input
-          id="name"
-          name="name"
-          type="text"
-          required
-          placeholder="Your name"
-          className="h-9 flex-1 min-w-0 rounded-l-full border border-r-0 border-rim/40 bg-canvas px-4 text-sm text-ink placeholder:text-ink/30 focus:outline-none focus:border-ink transition-colors"
-        />
-        <button
-          type="submit"
-          disabled={pending}
-          className="h-9 shrink-0 rounded-r-full bg-ink px-5 text-sm uppercase tracking-wide text-canvas transition-opacity hover:opacity-75 disabled:opacity-40 whitespace-nowrap"
-        >
-          {pending ? "…" : "Sign Up"}
-        </button>
-      </div>
-
-      {state.status === "error" && (
-        <p className="pl-4 text-xs text-accent">{state.message}</p>
-      )}
-    </form>
+    <div className="signup-wrap">
+      <span className="signup-label">Reserve your place</span>
+      <form action={formAction}>
+        <div className="signup-row">
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            placeholder="Your name"
+            className="signup-input"
+          />
+          <button
+            type="submit"
+            disabled={pending}
+            className="signup-btn"
+          >
+            {pending ? "…" : "Sign Up"}
+          </button>
+        </div>
+        {state.status === "error" && (
+          <p style={{ fontFamily: "Klomisk, sans-serif", fontSize: "0.65rem", color: "var(--color-gold)", marginTop: "0.75rem", letterSpacing: "0.05em" }}>
+            {state.message}
+          </p>
+        )}
+      </form>
+    </div>
   );
 }

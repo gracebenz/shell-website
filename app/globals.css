@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
-/* ================================================
-   CUSTOM FONTS
-   ================================================ */
+/* ─────────────────────────────────────────────────── */
+/*  FONTS                                              */
+/* ─────────────────────────────────────────────────── */
+
 @font-face {
-  font-family: "ZT Yaglo";
-  src: url("/fonts/ZT Yaglo Thin.otf") format("opentype");
-  font-weight: 100;
+  font-family: "Thegralke";
+  src: url("/fonts/Thegralke.ttf") format("truetype");
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
@@ -27,39 +28,829 @@
   font-display: swap;
 }
 
-/* ================================================
-   PALETTE — edit only this block to swap themes
-   ================================================ */
+@font-face {
+  font-family: "Klomisk";
+  src: url("/fonts/Klomisk.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Klomisk";
+  src: url("/fonts/Klomisk Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Zaslia";
+  src: url("/fonts/Zaslia.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─────────────────────────────────────────────────── */
+/*  DESIGN TOKENS                                      */
+/* ─────────────────────────────────────────────────── */
+
 @theme {
-  --color-heading:     #2d0719;  /* midnight-violet  */
-  --color-accent:      #f0494e;  /* strawberry-red   */
-  --color-surface:     #e9c3b9;  /* almond-silk      */
-  --color-surface-alt: #d9e6f1;  /* alice-blue       */
-  --color-rim:         #6f4951;  /* chocolate-plum   */
-  --color-canvas:      #faf7f4;  /* warm off-white   */
-  --color-ink:         #2d0719;  /* midnight-violet  */
+  --color-canvas:  #0c0a08;
+  --color-ink:     #f0e8d8;
+  --color-gold:    #b8962e;
+  --color-wine:    #5c1a28;
+  --color-dim:     #9a9082;
+  --color-surface: #141008;
+  --color-accent:  #b8962e;
+  --color-heading: #f0e8d8;
+  --color-rim:     #2a2218;
+
+  /* ── Type scale for small UI text ── */
+  --text-xs: 0.8rem;   /* tags, badges, micro labels          */
+  --text-sm: 0.9rem;   /* nav, dates, footer, all UI labels   */
+  --text-md: 1rem;     /* descriptions, excerpts, inputs      */
 }
 
 @theme inline {
-  --font-display: "ZT Yaglo", sans-serif;
+  --font-display: "Thegralke", Georgia, serif;
   --font-serif:   "Giomori", Georgia, serif;
-  --font-sans:    var(--font-inter), sans-serif;
+  --font-label:   "Klomisk", sans-serif;
+  --font-sans:    "Klomisk", sans-serif;
 }
 
-html {
-  scroll-behavior: auto;
-}
+/* ─────────────────────────────────────────────────── */
+/*  BASE                                               */
+/* ─────────────────────────────────────────────────── */
 
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-input[type="text"]:focus {
-  outline: none;
-  border-color: #2d0719 !important;
-}
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: "Klomisk", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
 
-body {
-  background-color: var(--color-canvas);
-  color: var(--color-ink);
-  font-family: var(--font-sans), sans-serif;
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-canvas);
+  }
+
+  /* ─── HERO ───────────────────────────────────── */
+
+  .hero-section {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3vw 5vw 6vw;
+    position: relative;
+    overflow: hidden;
+    background: var(--color-canvas);
+  }
+
+  .hero-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.045;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-accent-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, transparent 0%, var(--color-gold) 20%, var(--color-gold) 80%, transparent 100%);
+    opacity: 0.6;
+  }
+
+  .hero-masthead {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-dim);
+    border-bottom: 1px solid rgba(184,150,46,0.15);
+    z-index: 10;
+  }
+
+  .hero-masthead-brand {
+    font-family: "Giomori", Georgia, serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--color-gold);
+    letter-spacing: 0.03em;
+    text-transform: none;
+    text-decoration: none;
+  }
+
+  .hero-title {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 2.5rem;
+    animation: heroReveal 1.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .hero-line-a {
+    display: block;
+    font-family: "Thegralke", Georgia, serif;
+    font-size: clamp(5rem, min(20vw, 35svh), 16rem);
+    line-height: 0.82;
+    color: var(--color-ink);
+    user-select: none;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-line-glass {
+    display: block;
+    font-family: "Thegralke", Georgia, serif;
+    font-size: clamp(3rem, min(13vw, 22svh), 11rem);
+    line-height: 0.85;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--color-ink);
+    letter-spacing: 0.04em;
+    user-select: none;
+  }
+
+  .hero-line-ortu {
+    display: block;
+    font-family: "Giomori", Georgia, serif;
+    font-style: italic;
+    font-size: clamp(2.5rem, min(10vw, 18svh), 9rem);
+    line-height: 0.9;
+    color: var(--color-gold);
+    text-align: right;
+    user-select: none;
+  }
+
+  .hero-scroll-cue {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 5vw;
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-dim);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    animation: pulse 2.8s ease-in-out infinite;
+    z-index: 10;
+  }
+
+  .hero-scroll-cue::after {
+    content: "";
+    width: 1px;
+    height: 2.5rem;
+    background: linear-gradient(to bottom, var(--color-dim), transparent);
+  }
+
+  /* ─── SECTIONS ───────────────────────────────── */
+
+  .section-wrap {
+    padding: 5rem 5vw;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-label {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: rgba(184,150,46,0.2);
+  }
+
+  .section-count {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.1em;
+    color: var(--color-dim);
+    flex-shrink: 0;
+  }
+
+  /* ─── EVENT LEDGER ───────────────────────────── */
+
+  .ledger {
+    width: 100%;
+    border-top: 1px solid rgba(240,232,216,0.08);
+  }
+
+  .ledger-row {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr auto;
+    gap: 2rem;
+    align-items: baseline;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(240,232,216,0.06);
+    text-decoration: none;
+    position: relative;
+    transition: padding-left 0.3s ease;
+  }
+
+  .ledger-row::before {
+    content: "";
+    position: absolute;
+    left: -5vw;
+    right: -5vw;
+    top: 0;
+    bottom: 0;
+    background: rgba(184,150,46,0.035);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .ledger-row:hover::before { opacity: 1; }
+  .ledger-row:hover .ledger-title { color: var(--color-gold); }
+
+  .ledger-index {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    color: var(--color-dim);
+    letter-spacing: 0.08em;
+    opacity: 0.85;
+    padding-top: 0.35rem;
+  }
+
+  .ledger-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-width: 0;
+  }
+
+  .ledger-date {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-dim);
+  }
+
+  .ledger-title {
+    font-family: "Giomori", Georgia, serif;
+    font-style: italic;
+    font-size: clamp(1.15rem, 2.2vw, 1.75rem);
+    color: var(--color-ink);
+    line-height: 1.15;
+    transition: color 0.3s ease;
+  }
+
+  .ledger-desc {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-md);
+    color: var(--color-dim);
+    line-height: 1.55;
+    margin-top: 0.15rem;
+  }
+
+  .ledger-meta {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .ledger-place {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-dim);
+    white-space: nowrap;
+  }
+
+  /* ─── JOURNAL LIST ───────────────────────────── */
+
+  .journal-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .journal-entry {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding: 2.2rem 0;
+    border-bottom: 1px solid rgba(240,232,216,0.06);
+    text-decoration: none;
+    position: relative;
+  }
+
+  .journal-entry::before {
+    content: "";
+    position: absolute;
+    left: -5vw;
+    right: -5vw;
+    top: 0;
+    bottom: 0;
+    background: rgba(184,150,46,0.035);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .journal-entry:hover::before { opacity: 1; }
+  .journal-entry:hover .journal-title { color: var(--color-gold); }
+
+  .journal-marker {
+    font-family: "Zaslia", serif;
+    font-size: 1rem;
+    color: var(--color-gold);
+    margin-bottom: 0.6rem;
+    display: block;
+    opacity: 0.6;
+  }
+
+  .journal-title {
+    font-family: "Giomori", Georgia, serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
+    color: var(--color-ink);
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+  }
+
+  .journal-excerpt {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-md);
+    color: var(--color-dim);
+    line-height: 1.65;
+  }
+
+  .journal-date {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-dim);
+    white-space: nowrap;
+    padding-top: 0.5rem;
+    text-align: right;
+  }
+
+  /* ─── FIXED NAV ──────────────────────────────── */
+
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5vw;
+    height: 3.5rem;
+    background: rgba(12,10,8,0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(184,150,46,0.18);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .site-nav.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-100%);
+  }
+
+  .nav-link {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-dim);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .nav-link:hover { color: var(--color-gold); }
+
+  .nav-brand {
+    font-family: "Giomori", Georgia, serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  /* ─── STATIC NAV ─────────────────────────────── */
+
+  .static-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5vw;
+    height: 3.5rem;
+    background: var(--color-canvas);
+    border-bottom: 1px solid rgba(184,150,46,0.18);
+    flex-shrink: 0;
+  }
+
+  /* ─── DETAIL PAGES ───────────────────────────── */
+
+  .detail-outer {
+    flex: 1;
+    background: var(--color-canvas);
+    padding: 4rem 5vw;
+  }
+
+  .detail-inner {
+    max-width: 46rem;
+    margin: 0 auto;
+    animation: fadeIn 0.5s ease both;
+  }
+
+  .detail-ornament {
+    font-family: "Zaslia", serif;
+    font-size: 1.6rem;
+    color: var(--color-gold);
+    text-align: center;
+    margin: 2.5rem 0;
+    opacity: 0.55;
+    letter-spacing: 0.15em;
+  }
+
+  .detail-heading {
+    font-family: "Giomori", Georgia, serif;
+    font-style: italic;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    color: var(--color-ink);
+    line-height: 1.1;
+    margin-bottom: 2.5rem;
+  }
+
+  .detail-rule {
+    width: 100%;
+    height: 1px;
+    background: rgba(184,150,46,0.2);
+    margin: 2rem 0;
+  }
+
+  .detail-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    gap: 1.5rem 2rem;
+    margin-bottom: 3rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(184,150,46,0.15);
+    border-bottom: 1px solid rgba(184,150,46,0.15);
+  }
+
+  .detail-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .detail-meta-label {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-xs);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .detail-meta-value {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    color: var(--color-dim);
+    letter-spacing: 0.03em;
+    line-height: 1.4;
+  }
+
+  .detail-body {
+    font-family: "Giomori", Georgia, serif;
+    font-size: 1rem;
+    line-height: 1.9;
+    color: rgba(240,232,216,0.75);
+    letter-spacing: 0.01em;
+  }
+
+  .detail-body p + p {
+    margin-top: 1.5rem;
+  }
+
+  /* ─── ARCHIVE ─────────────────────────────────── */
+
+  .archive-wrap {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-canvas);
+  }
+
+  .archive-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 3rem 5vw;
+    max-width: 68rem;
+    margin: 0 auto;
+    width: 100%;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .archive-scroll::-webkit-scrollbar { display: none; }
+
+  .archive-heading {
+    font-family: "Thegralke", Georgia, serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: var(--color-ink);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+  }
+
+  /* ─── SEARCH ─────────────────────────────────── */
+
+  .search-field {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(240,232,216,0.18);
+    padding: 0.4rem 0;
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-md);
+    letter-spacing: 0.06em;
+    color: var(--color-ink);
+    width: 200px;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .search-field::placeholder { color: var(--color-dim); }
+  .search-field:focus { border-color: var(--color-gold); }
+
+  /* ─── SIGNUP ─────────────────────────────────── */
+
+  .signup-wrap {
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(184,150,46,0.2);
+  }
+
+  .signup-label {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .signup-row {
+    display: flex;
+  }
+
+  .signup-input {
+    flex: 1;
+    background: transparent;
+    border: 1px solid rgba(240,232,216,0.12);
+    border-right: none;
+    padding: 0.7rem 1rem;
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-md);
+    color: var(--color-ink);
+    outline: none;
+    transition: border-color 0.2s ease;
+    letter-spacing: 0.04em;
+    min-width: 0;
+  }
+
+  .signup-input::placeholder { color: var(--color-dim); }
+  .signup-input:focus { border-color: rgba(184,150,46,0.45); }
+
+  .signup-btn {
+    background: var(--color-gold);
+    color: var(--color-canvas);
+    border: 1px solid var(--color-gold);
+    padding: 0.7rem 1.4rem;
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .signup-btn:hover:not(:disabled) {
+    background: transparent;
+    color: var(--color-gold);
+  }
+
+  .signup-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  /* ─── FILTER ─────────────────────────────────── */
+
+  .filter-row {
+    display: flex;
+    border: 1px solid rgba(240,232,216,0.1);
+    width: fit-content;
+    margin-bottom: 3rem;
+  }
+
+  .filter-pill {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.45rem 1.1rem;
+    text-decoration: none;
+    color: var(--color-dim);
+    transition: background 0.2s ease, color 0.2s ease;
+    border-right: 1px solid rgba(240,232,216,0.1);
+  }
+
+  .filter-pill:last-child { border-right: none; }
+  .filter-pill.active { background: var(--color-gold); color: var(--color-canvas); }
+  .filter-pill:hover:not(.active) { color: var(--color-ink); }
+
+  /* ─── BACK LINK ──────────────────────────────── */
+
+  .back-link {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-dim);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+    transition: color 0.2s ease;
+  }
+
+  .back-link:hover { color: var(--color-gold); }
+
+  /* ─── FOOTER ─────────────────────────────────── */
+
+  .site-footer {
+    padding: 2rem 5vw;
+    border-top: 1px solid rgba(184,150,46,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-copy {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-dim);
+  }
+
+  .footer-ornament {
+    font-family: "Zaslia", serif;
+    font-size: 1.1rem;
+    color: var(--color-gold);
+    opacity: 0.4;
+  }
+
+  /* ─── SEE ALL ────────────────────────────────── */
+
+  .see-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 3rem;
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-dim);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .see-all:hover { color: var(--color-gold); }
+
+  /* ─── PAGINATION ─────────────────────────────── */
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(240,232,216,0.06);
+  }
+
+  .page-link {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-dim);
+    transition: color 0.2s ease;
+  }
+
+  .page-link:hover { color: var(--color-gold); }
+  .page-link.dim { opacity: 0.28; pointer-events: none; }
+
+  .page-count {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-sm);
+    color: var(--color-dim);
+    letter-spacing: 0.1em;
+  }
+
+  /* ─── TAG CHIP ───────────────────────────────── */
+
+  .tag-chip {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-xs);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.65rem;
+    border: 1px solid rgba(184,150,46,0.28);
+    color: rgba(184,150,46,0.7);
+    display: inline-block;
+  }
+
+  .past-badge {
+    font-family: "Klomisk", sans-serif;
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid rgba(240,232,216,0.15);
+    color: var(--color-dim);
+    display: inline-block;
+  }
+
+  /* ─── ANIMATIONS ─────────────────────────────── */
+
+  @keyframes heroReveal {
+    from { opacity: 0; transform: translateY(2.5rem); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.35; }
+    50%       { opacity: 0.85; }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .anim-fade { animation: fadeIn 0.5s ease both; }
+
+  /* ─── DROP CAP ───────────────────────────────── */
+
+  .drop-cap-para::first-letter {
+    font-family: "Thegralke", Georgia, serif;
+    font-size: 4.5em;
+    line-height: 0.72;
+    float: left;
+    margin-right: 0.08em;
+    margin-top: 0.06em;
+    color: var(--color-gold);
+  }
 }

@@ -24,7 +24,7 @@ export default function BackButton({
   }
 
   return (
-    <button onClick={handleClick} className={className} style={style}>
+    <button onClick={handleClick} className={className ?? "back-link"} style={style}>
       ← Back
     </button>
   );

@@ -4,7 +4,6 @@ export default function WavyRule({ width = 192, strokeWidth = 1.2, className, st
   className?: string;
   style?: React.CSSProperties;
 }) {
-  // viewBox height 10, wave oscillates ±3px around center (5)
   return (
     <svg
       width={width}
@@ -16,7 +15,7 @@ export default function WavyRule({ width = 192, strokeWidth = 1.2, className, st
     >
       <path
         d={buildWave(width)}
-        stroke="#f0494e"
+        stroke="var(--c-wave)"
         strokeWidth={strokeWidth}
         fill="none"
         vectorEffect="non-scaling-stroke"

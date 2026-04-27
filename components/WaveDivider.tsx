@@ -10,7 +10,7 @@ export default function WaveDivider({ topColor, bottomColor }: { topColor: strin
       >
         <path
           d="M0,24 C90,4 180,44 270,24 C360,4 450,44 540,24 C630,4 720,44 810,24 C900,4 990,44 1080,24 C1170,4 1260,44 1350,24 C1395,14 1420,34 1440,24"
-          stroke="#f0494e"
+          stroke="var(--c-wave)"
           strokeWidth="1.2"
           fill="none"
           vectorEffect="non-scaling-stroke"

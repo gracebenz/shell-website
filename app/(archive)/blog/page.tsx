@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase-server";
 import PerPageSetter from "@/components/PerPageSetter";
-import WavyRule from "@/components/WavyRule";
 
 export const dynamic = "force-dynamic";
 
 function formatDate(dateStr: string) {
   return new Date(dateStr + "T00:00:00").toLocaleDateString("en-US", {
-    month: "long",
+    month: "short",
     day: "numeric",
     year: "numeric",
   });
@@ -46,106 +45,74 @@ export default async function BlogPage({
   }
 
   const Pagination = () => totalPages > 1 ? (
-    <div className="flex items-center justify-center gap-6">
+    <div className="pagination">
       {page > 1 ? (
-        <Link href={pageUrl(page - 1)} className="text-xs uppercase tracking-widest transition-colors hover:text-accent" style={{ color: "#2d0719" }}>
-          ← Prev
-        </Link>
+        <Link href={pageUrl(page - 1)} className="page-link">← Prev</Link>
       ) : (
-        <span className="text-xs uppercase tracking-widest" style={{ color: "rgba(45,7,25,0.3)" }}>← Prev</span>
+        <span className="page-link dim">← Prev</span>
       )}
-      <span className="text-xs" style={{ color: "#6f4951" }}>
+      <span className="page-count">
         {String(page).padStart(2, "0")} / {String(totalPages).padStart(2, "0")}
       </span>
       {page < totalPages ? (
-        <Link href={pageUrl(page + 1)} className="text-xs uppercase tracking-widest transition-colors hover:text-accent" style={{ color: "#2d0719" }}>
-          Next →
-        </Link>
+        <Link href={pageUrl(page + 1)} className="page-link">Next →</Link>
       ) : (
-        <span className="text-xs uppercase tracking-widest" style={{ color: "rgba(45,7,25,0.3)" }}>Next →</span>
+        <span className="page-link dim">Next →</span>
       )}
     </div>
   ) : null;
 
   return (
-    <div className="h-full flex flex-col" style={{ backgroundColor: "#d9e6f1" }}>
-      <PerPageSetter scrollId="blog-scroll" cardsId="blog-cards" gapH={8} maxCols={1} />
+    <div className="archive-wrap">
+      <PerPageSetter scrollId="blog-scroll" cardsId="blog-cards" gapH={0} maxCols={1} />
 
-      {/* Scrollable content */}
-      <div id="blog-scroll" className="flex-1 overflow-y-auto no-scrollbar px-6 md:px-16 py-6 max-w-3xl mx-auto w-full">
+      <div id="blog-scroll" className="archive-scroll">
 
-        {/* Back button */}
-        <Link href="/#blog" className="inline-flex items-center gap-1 text-xs uppercase tracking-widest transition-colors hover:text-accent mb-4" style={{ color: "#6f4951" }}>
-          ← Back
-        </Link>
+        <Link href="/#blog" className="back-link">← Back</Link>
 
-        {/* Header row */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
-          <h1
-            className="text-5xl md:text-6xl uppercase leading-none"
-            style={{ fontFamily: "ZT Yaglo, sans-serif", fontWeight: 100, color: "#2d0719", letterSpacing: "0.1em" }}
-          >
-            Blog
-          </h1>
-          <div className="w-12 mt-3" style={{ height: "1px", backgroundColor: "#f0494e" }} />
-          <form method="GET" action="/blog" className="flex items-center">
+        {/* Header */}
+        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "2rem", marginBottom: "0.5rem", flexWrap: "wrap" }}>
+          <h1 className="archive-heading">Journal</h1>
+          <form method="GET" action="/blog" style={{ display: "flex", alignItems: "center", paddingBottom: "0.75rem" }}>
             <input
               type="text"
               name="q"
               defaultValue={q}
-              placeholder="Search posts..."
-              className="text-sm outline-none"
-              style={{
-                backgroundColor: "#faf7f4",
-                border: "1.5px solid rgba(45,7,25,0.2)",
-                borderRadius: "999px",
-                padding: "0.5rem 1.25rem",
-                color: "#2d0719",
-                width: "min(100%, 280px)",
-              }}
+              placeholder="Search entries..."
+              className="search-field"
             />
           </form>
         </div>
 
-        {/* Post list */}
+        <div style={{ height: "1px", background: "rgba(184,150,46,0.2)", marginBottom: "2.5rem" }} />
+
         {!posts?.length ? (
-          <p className="text-sm" style={{ color: "#6f4951" }}>
-            {q ? `No posts matching "${q}".` : "No posts yet."}
+          <p style={{ fontFamily: "Klomisk, sans-serif", fontSize: "var(--text-md)", color: "var(--color-dim)" }}>
+            {q ? `No entries matching "${q}".` : "No entries yet."}
           </p>
         ) : (
-          <div id="blog-cards" className="flex flex-col gap-2">
+          <div className="journal-list" id="blog-cards" style={{ borderTop: "1px solid rgba(240,232,216,0.06)" }}>
             {posts.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="group flex flex-col gap-1.5 rounded-xl p-4 transition-all duration-300 hover:scale-[1.01]"
-                style={{ backgroundColor: "#faf7f4", border: "1px solid rgba(45,7,25,0.06)" }}
-              >
-                <p className="text-[11px] uppercase tracking-widest" style={{ color: "rgba(45,7,25,0.5)" }}>
-                  {formatDate(post.published_at)}
-                </p>
-                <h2 className="text-2xl leading-snug" style={{ fontFamily: "Giomori, Georgia, serif", fontStyle: "italic", color: "#6f4951" }}>
-                  {post.title}
-                </h2>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(45,7,25,0.6)" }}>
-                  {post.excerpt}
-                </p>
+              <Link key={post.slug} href={`/blog/${post.slug}`} className="journal-entry">
+                <div>
+                  <span className="journal-marker">✦</span>
+                  <span className="journal-title">{post.title}</span>
+                  {post.excerpt && <p className="journal-excerpt">{post.excerpt}</p>}
+                </div>
+                <span className="journal-date">{formatDate(post.published_at)}</span>
               </Link>
             ))}
           </div>
         )}
       </div>
 
-      {/* Pinned bottom: pagination + footer */}
-      {totalPages > 1 && (
-        <div className="py-3 flex justify-center">
-          <Pagination />
-        </div>
-      )}
-      <div className="py-6 flex flex-col items-center gap-3">
-        <WavyRule />
-        <p className="text-xs uppercase tracking-widest" style={{ color: "rgba(45,7,25,0.4)" }}>© Shell Tu</p>
-      </div>
+      {totalPages > 1 && <Pagination />}
+
+      <footer className="site-footer">
+        <span className="footer-copy">© Shell Tu</span>
+        <span className="footer-ornament">✦</span>
+        <span className="footer-copy">A Glass or Tu</span>
+      </footer>
     </div>
   );
 }
